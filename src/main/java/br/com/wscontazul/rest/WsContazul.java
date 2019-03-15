@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.wscontazul.model.Ca01Usuario;
 import br.com.wscontazul.model.Ca02Contazul;
+import br.com.wscontazul.model.Ca03SomaSaldo;
 import br.com.wscontazul.repository.Ca01UsuarioRepository;
 import br.com.wscontazul.repository.Ca02ContazulRepository;
+import br.com.wscontazul.repository.Ca03SomaSaldoRepository;
 import br.com.wscontazul.statics.Contazul;
 import br.com.wscontazul.statics.Excecoes;
 import br.com.wscontazul.util.UtilContazul;
@@ -26,6 +28,9 @@ public class WsContazul {
 
 	@Autowired
 	private Ca02ContazulRepository contazulR;
+	
+	@Autowired
+	private Ca03SomaSaldoRepository somaSaldoR;
 
 	@GetMapping("/ex01")
 	public String verificarNomeUsuarioExistenteEX01(String nomeUsuario) {
@@ -81,6 +86,15 @@ public class WsContazul {
 		contazul.setDescricao(descricao);
 		contazul.setValorIdeal(valorIdeal);
 		contazulR.save(contazul);
+	}
+	
+	@PostMapping("/inserirSomaSaldo")
+	public void inserirSomaSaldo(long numeroContazul, double valor, String descricao) {
+		
+		somaSaldoR.save(new Ca03SomaSaldo(valor, descricao, numeroContazul));
+		Ca02Contazul ca02Contazul = contazulR.findByNumeroContazul(numeroContazul);
+		ca02Contazul.setSaldo(ca02Contazul.getSaldo() + valor);
+		contazulR.save(ca02Contazul);
 	}
 }
 
