@@ -2,8 +2,10 @@ package br.com.wscontazul.rest;
 
 import br.com.wscontazul.model.Ca02Contazul;
 import br.com.wscontazul.model.Ca04SubtracaoSaldo;
+import br.com.wscontazul.model.Ca05LucroMensal;
 import br.com.wscontazul.repository.Ca02ContazulRepository;
 import br.com.wscontazul.repository.Ca04SubtracaoSaldoRepository;
+import br.com.wscontazul.repository.Ca05LucroMensalRepository;
 import br.com.wscontazul.util.UtilDatas;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +40,7 @@ public class WsContazulSubtracaoDeSaldo {
 
         UtilDatas utilDatas = new UtilDatas();
         Date[] intervalo = utilDatas.getDateIntervaloDeDatasMensal();
-        return subtracaoSaldoR.findByNumeroContazulAndDataMovimentoBetweenOrderByValorAsc(numeroContazul,
+        return subtracaoSaldoR.findByNumeroContazulAndDataMovimentoBetweenOrderByValorDesc(numeroContazul,
                 intervalo[0], intervalo[1]);
     }
 }

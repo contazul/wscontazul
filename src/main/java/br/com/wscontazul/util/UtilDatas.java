@@ -144,4 +144,19 @@ public class UtilDatas {
 
         return dateIntervalo;
     }
+
+    public Date converterStringEmSqlDate(String strData) {
+
+        DateFormat format = new SimpleDateFormat("dd/MM");
+
+        try {
+
+            return new java.sql.Date(format.parse(strData).getTime());
+        } catch (ParseException pe) {
+
+            pe.printStackTrace();
+        }
+
+        return null;
+    }
 }
