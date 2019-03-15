@@ -1,5 +1,6 @@
 package br.com.wscontazul.rest;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.wscontazul.model.Ca01Usuario;
 import br.com.wscontazul.model.Ca02Contazul;
 import br.com.wscontazul.model.Ca03SomaSaldo;
+import br.com.wscontazul.model.presenter.Saldo;
 import br.com.wscontazul.repository.Ca01UsuarioRepository;
 import br.com.wscontazul.repository.Ca02ContazulRepository;
 import br.com.wscontazul.repository.Ca03SomaSaldoRepository;
 import br.com.wscontazul.statics.Contazul;
 import br.com.wscontazul.statics.Excecoes;
 import br.com.wscontazul.util.UtilContazul;
+import br.com.wscontazul.util.UtilDatas;
 
 @RestController
 @RequestMapping("/wscontazul")
@@ -95,6 +98,22 @@ public class WsContazul {
 		Ca02Contazul ca02Contazul = contazulR.findByNumeroContazul(numeroContazul);
 		ca02Contazul.setSaldo(ca02Contazul.getSaldo() + valor);
 		contazulR.save(ca02Contazul);
+	}
+	
+	@GetMapping("/saldo")
+	public Saldo saldo(long numeroContazul) {
+		
+		return new Saldo(contazulR.findSaldoByNumeroContazul(numeroContazul));
+	
+	}
+	
+	@GetMapping("/listaSomaSaldo")
+	public List<Ca03SomaSaldo> listaSomaSaldo(long numeroContazul) {
+		
+		UtilDatas utilDatas = new UtilDatas();
+		Date[] intervalo = utilDatas.getDateIntervaloDeDatasMensal();
+		return somaSaldoR.findByNumeroContazulAndDataMovimentoBetweenOrderByValorDesc(numeroContazul, 
+				intervalo[0], intervalo[1]);
 	}
 }
 
