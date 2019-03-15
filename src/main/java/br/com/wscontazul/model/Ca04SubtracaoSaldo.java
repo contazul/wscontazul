@@ -1,6 +1,9 @@
 package br.com.wscontazul.model;
 
+import br.com.wscontazul.util.UtilDatas;
+
 import javax.persistence.*;
+import java.sql.Date;
 
 @Table(name = "ca_04_subtracao_saldo")
 @Entity(name = "Ca04SubtracaoSaldoRepository")
@@ -20,6 +23,9 @@ public class Ca04SubtracaoSaldo {
     @Column(name = "prioridade")
     private String prioridade;
 
+    @Column(name = "data_movimento")
+    private Date dataMovimento;
+
     @Column(name = "numero_contazul")
     private long numeroContazul;
 
@@ -32,6 +38,8 @@ public class Ca04SubtracaoSaldo {
         this.descricao = descricao;
         this.valor = valor;
         this.prioridade = prioridade;
+        UtilDatas utilDatas = new UtilDatas();
+        this.dataMovimento = utilDatas.getDataCorrente();
         this.numeroContazul = numeroContazul;
     }
 
@@ -65,6 +73,14 @@ public class Ca04SubtracaoSaldo {
 
     public void setPrioridade(String prioridade) {
         this.prioridade = prioridade;
+    }
+
+    public Date getDataMovimento() {
+        return dataMovimento;
+    }
+
+    public void setDataMovimento(Date dataMovimento) {
+        this.dataMovimento = dataMovimento;
     }
 
     public long getNumeroContazul() {
