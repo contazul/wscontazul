@@ -38,7 +38,7 @@ public class WsContazulSubtracaoDeSaldo {
 
         UtilDatas utilDatas = new UtilDatas();
         Date[] intervalo = utilDatas.getDateIntervaloDeDatasMensal();
-        return subtracaoSaldoR.findByNumeroContazulAndDataMovimentoBetweenOrderByValorAsc(numeroContazul,
+        return subtracaoSaldoR.findByNumeroContazulAndDataMovimentoBetweenOrderByValorDesc(numeroContazul,
                 intervalo[0], intervalo[1]);
     }
 }

@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface Ca04SubtracaoSaldoRepository extends CrudRepository<Ca04SubtracaoSaldo, Long> {
 
-    List<Ca04SubtracaoSaldo> findByNumeroContazulAndDataMovimentoBetweenOrderByValorAsc(long numeroContazul, final Date start, final Date end);
+    List<Ca04SubtracaoSaldo> findByNumeroContazulAndDataMovimentoBetweenOrderByValorDesc(long numeroContazul, final Date start, final Date end);
 }
