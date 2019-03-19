@@ -159,4 +159,33 @@ public class UtilDatas {
 
         return null;
     }
+    
+    public String converterSqlDateParaString(Date data) {
+    	
+    	if(data != null) {
+    		
+    		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+    		return df.format(data);
+    	}
+    	
+    	return null;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

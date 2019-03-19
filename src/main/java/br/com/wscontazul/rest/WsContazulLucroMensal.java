@@ -2,6 +2,7 @@ package br.com.wscontazul.rest;
 
 import br.com.wscontazul.model.Ca02Contazul;
 import br.com.wscontazul.model.Ca05LucroMensal;
+import br.com.wscontazul.model.presenter.ListaLucroMensal;
 import br.com.wscontazul.repository.Ca02ContazulRepository;
 import br.com.wscontazul.repository.Ca05LucroMensalRepository;
 import br.com.wscontazul.util.UtilDatas;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -37,9 +39,22 @@ public class WsContazulLucroMensal {
     }
 
     @GetMapping("/listaDeLucroMensal")
-    public List<Ca05LucroMensal> listaDeLucroMensal(long numeroContazul) {
-
-        return lucroMensalR.findByNumeroContazulOrderByValorDesc(numeroContazul);
+    public List<ListaLucroMensal> listaDeLucroMensal(long numeroContazul) {
+    	
+    	List<Ca05LucroMensal> lucrosMensais = lucroMensalR.findByNumeroContazulOrderByValorDesc(numeroContazul);
+    	List<ListaLucroMensal> listaLucroMensal = new ArrayList<>();
+    	for(Ca05LucroMensal lucroMensal : lucrosMensais) {
+    		
+    		UtilDatas utilDatas = new UtilDatas();
+    		ListaLucroMensal listaLucroMensal2 = new ListaLucroMensal(
+    				lucroMensal.getId(),
+    				lucroMensal.getDescricao(),
+    				lucroMensal.getValor(),
+    				utilDatas.converterSqlDateParaString(lucroMensal.getUltimaDataRecebimento())
+    				);
+    		listaLucroMensal.add(listaLucroMensal2);
+    	}
+        return listaLucroMensal;
     }
     
     @PostMapping("/receber")
