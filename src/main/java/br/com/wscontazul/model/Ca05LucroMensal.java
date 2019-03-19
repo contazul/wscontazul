@@ -5,7 +5,7 @@ import java.sql.Date;
 import javax.persistence.*;
 
 @Table(name = "ca_05_lucro_mensal")
-@Entity(name = "Ca05LucroMensalRepository")
+@Entity(name = "Ca05LucroMensal")
 public class Ca05LucroMensal {
 
 	@Id

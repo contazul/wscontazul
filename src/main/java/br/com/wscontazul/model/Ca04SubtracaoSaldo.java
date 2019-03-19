@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Table(name = "ca_04_subtracao_saldo")
-@Entity(name = "Ca04SubtracaoSaldoRepository")
+@Entity(name = "Ca04SubtracaoSaldo")
 public class Ca04SubtracaoSaldo {
 
     @Id
