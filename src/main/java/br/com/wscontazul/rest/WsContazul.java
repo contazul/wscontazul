@@ -86,8 +86,11 @@ public class WsContazul {
 	public void atualizarPerfilContazul(long numeroContazul, String descricao, double valorIdeal) {
 		
 		Ca02Contazul contazul = contazulR.findByNumeroContazul(numeroContazul);
-		contazul.setDescricao(descricao);
-		contazul.setValorIdeal(valorIdeal);
+		if(descricao != null && !descricao.isEmpty())
+			contazul.setDescricao(descricao);
+		
+		if(valorIdeal != 0) 
+			contazul.setValorIdeal(valorIdeal);
 		contazulR.save(contazul);
 	}
 	
