@@ -15,14 +15,14 @@ public interface Ca04SubtracaoSaldoRepository extends CrudRepository<Ca04Subtrac
     @Query("SELECT SUM(a.valor) FROM Ca04SubtracaoSaldo a WHERE a.numeroContazul =:numeroContazul " +
             "AND a.prioridade =:prioridade " +
             "AND a.dataMovimento BETWEEN :startDate AND :endDate")
-    double selectTotalSubtracaoSaldoBaixaPrioridade(@Param("numeroContazul") long numeroContazul,
+    Double selectTotalSubtracaoSaldoBaixaPrioridade(@Param("numeroContazul") long numeroContazul,
                                                     @Param("startDate") final Date start,
                                                     @Param("endDate") final Date end,
                                                     @Param("prioridade") String prioridade);
 
     @Query("SELECT SUM(a.valor) FROM Ca04SubtracaoSaldo a WHERE a.numeroContazul =:numeroContazul " +
             "AND a.dataMovimento BETWEEN :startDate AND :endDate")
-    double selectTotalSubtracaoSaldo(@Param("numeroContazul") long numeroContazul,
+    Double selectTotalSubtracaoSaldo(@Param("numeroContazul") long numeroContazul,
                                                     @Param("startDate") final Date start,
                                                     @Param("endDate") final Date end);
 

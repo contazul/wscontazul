@@ -14,5 +14,5 @@ public interface Ca05LucroMensalRepository extends CrudRepository<Ca05LucroMensa
     List<Ca05LucroMensal> findByNumeroContazulOrderByValorDesc(long numeroContazul);
 
     @Query("SELECT SUM(a.valor) FROM Ca05LucroMensal a WHERE a.numeroContazul =:numeroContazul")
-    double selectTotalLucroMensal(@Param("numeroContazul") long numeroContazul);
+    Double selectTotalLucroMensal(@Param("numeroContazul") long numeroContazul);
 }

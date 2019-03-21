@@ -41,8 +41,7 @@ public class WsContazulCentral {
         UtilDatas utilDatas = new UtilDatas();
         Date[] intervalo = utilDatas.getDateIntervaloDeDatasMensal();
         central.setTotalSubtracaoSaldoBaixaPrioridade(this.subtracaoSaldoR.selectTotalSubtracaoSaldoBaixaPrioridade(
-                numeroContazul, intervalo[0], intervalo[1], "Baixa"
-        ));
+                numeroContazul, intervalo[0], intervalo[1], "Baixa"));
         central.setTotalSubtracaoSaldoGeral(subtracaoSaldoR.selectTotalSubtracaoSaldo(numeroContazul, intervalo[0],
                 intervalo[1]));
         central.setTotalBeneficioMensal(lucroMensalR.selectTotalLucroMensal(numeroContazul));

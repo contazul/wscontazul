@@ -15,7 +15,7 @@ public interface Ca03SomaSaldoRepository extends CrudRepository<Ca03SomaSaldo, L
 
 	@Query("SELECT SUM(a.valor) FROM Ca03SomaSaldo a WHERE a.numeroContazul =:numeroContazul " +
 			"AND a.dataMovimento BETWEEN :startDate AND :endDate")
-	double selectTotalSomaSaldo(@Param("numeroContazul") long numeroContazul,
+	Double selectTotalSomaSaldo(@Param("numeroContazul") long numeroContazul,
 									 @Param("startDate") final Date start,
 									 @Param("endDate") final Date end);
 }
