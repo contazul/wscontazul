@@ -73,7 +73,7 @@ public class UtilDatas {
             case "03":
 
                 intervalo[0] = "01/03/" + getAnoAtual();
-                intervalo[1] = "30/03/" + getAnoAtual();
+                intervalo[1] = "31/03/" + getAnoAtual();
                 break;
             case "04":
 
@@ -88,7 +88,7 @@ public class UtilDatas {
             case "06":
 
                 intervalo[0] = "01/06/" + getAnoAtual();
-                intervalo[1] = "29/06/" + getAnoAtual();
+                intervalo[1] = "30/06/" + getAnoAtual();
                 break;
             case "07":
 
