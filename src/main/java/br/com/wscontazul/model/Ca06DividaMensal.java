@@ -33,13 +33,19 @@ public class Ca06DividaMensal {
 	
 	@Column(name = "data_pagamento")
 	private Date dataPagamento;
+	
+	@Column(name = "numero_contazul")
+	private long numeroContazul;
 
 	public Ca06DividaMensal() {
 		
 	}
 
+	
+
 	public Ca06DividaMensal(String descricao, double valor, String prioridade, int quantidadePaga,
-			int quantidadeParcela, int pago, Date dataPagamento) {
+			int quantidadeParcela, int pago, Date dataPagamento, long numeroContazul) {
+
 		this.descricao = descricao;
 		this.valor = valor;
 		this.prioridade = prioridade;
@@ -47,7 +53,10 @@ public class Ca06DividaMensal {
 		this.quantidadeParcela = quantidadeParcela;
 		this.pago = pago;
 		this.dataPagamento = dataPagamento;
+		this.numeroContazul = numeroContazul;
 	}
+
+
 
 	public long getId() {
 		return id;
@@ -113,5 +122,17 @@ public class Ca06DividaMensal {
 		this.dataPagamento = dataPagamento;
 	}
 
+
+
+	public long getNumeroContazul() {
+		return numeroContazul;
+	}
+
+
+
+	public void setNumeroContazul(long numeroContazul) {
+		this.numeroContazul = numeroContazul;
+	}
+	
 	
 }
