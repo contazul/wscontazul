@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.wscontazul.model.Ca02Contazul;
 import br.com.wscontazul.model.Ca06DividaMensal;
 import br.com.wscontazul.repository.Ca02ContazulRepository;
 import br.com.wscontazul.repository.Ca06DividaMensalRepository;
@@ -40,4 +41,34 @@ public class WsContazulContasAPagar {
 		
         return (List<Ca06DividaMensal>) dividaMensalR.findByNumeroContazulAndPago(numeroContazul, 0);
 	}
+	
+	@PostMapping("/quitarDivida")
+	public void quitarDivida(long id_divida_mensal) {
+		Ca06DividaMensal ca06DividaMensal =  dividaMensalR.findById(id_divida_mensal);
+		int totalParcela = ca06DividaMensal.getQuantidadeParcela();
+		int quantidadePaga = ca06DividaMensal.getQuantidadePaga();
+		double valorDivida = ca06DividaMensal.getValor();
+		double valorQuitar = (totalParcela - quantidadePaga) * valorDivida;
+		Ca02Contazul ca02Contazul =  contazulR.findByNumeroContazul(ca06DividaMensal.getNumeroContazul());
+		ca02Contazul.setSaldo(ca02Contazul.getSaldo() - valorQuitar);
+		contazulR.save(ca02Contazul);
+		ca06DividaMensal.setPago(1);
+		dividaMensalR.save(ca06DividaMensal);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
