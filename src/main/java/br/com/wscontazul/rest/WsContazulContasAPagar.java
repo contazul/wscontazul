@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,6 +55,22 @@ public class WsContazulContasAPagar {
 		contazulR.save(ca02Contazul);
 		ca06DividaMensal.setPago(1);
 		dividaMensalR.save(ca06DividaMensal);
+	}
+	
+	@PostMapping("/pagarDivida")
+	public void pagarDIvida(long id_divida_mensal) {
+		Ca06DividaMensal ca06DividaMensal = dividaMensalR.findById(id_divida_mensal);
+		Ca02Contazul ca02Contazul =  contazulR.findByNumeroContazul(ca06DividaMensal.getNumeroContazul());
+		ca02Contazul.setSaldo(ca02Contazul.getSaldo() - ca06DividaMensal.getValor());
+		contazulR.save(ca02Contazul);
+		ca06DividaMensal.setPago(1);
+		dividaMensalR.save(ca06DividaMensal);
+	}
+	
+	@DeleteMapping("/excluirDivida")
+	public void excluirDivida(long id_divida_mensal) {
+		Ca06DividaMensal ca06DividaMensal = dividaMensalR.findById(id_divida_mensal);
+		dividaMensalR.delete(ca06DividaMensal);
 	}
 }
 
