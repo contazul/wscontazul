@@ -13,9 +13,6 @@ public class Ca02Contazul {
 	@Column(name = "numero_contazul")
 	private long numeroContazul;
 	
-	@Column(name = "status")
-	private String status;
-	
 	@Column(name = "saldo")
 	private double saldo;
 	
@@ -35,18 +32,16 @@ public class Ca02Contazul {
 		
 	}
 	
-	public Ca02Contazul(String perfil, long numeroContazul, String status) {
+	public Ca02Contazul(String perfil, long numeroContazul) {
 		
 		this.perfil = perfil;
 		this.numeroContazul = numeroContazul;
-		this.status = status;
 	}
 	
-	public Ca02Contazul(long numeroContazul, String status, double saldo, double valorIdeal, String descricao,
+	public Ca02Contazul(long numeroContazul, double saldo, double valorIdeal, String descricao,
 			String perfil, long idUsuario) {
 		
 		this.numeroContazul = numeroContazul;
-		this.status = status;
 		this.saldo = saldo;
 		this.valorIdeal = valorIdeal;
 		this.descricao = descricao;
@@ -60,14 +55,6 @@ public class Ca02Contazul {
 
 	public void setNumeroContazul(long numeroContazul) {
 		this.numeroContazul = numeroContazul;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 	public double getSaldo() {

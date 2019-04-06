@@ -12,7 +12,7 @@ public interface Ca02ContazulRepository extends CrudRepository<Ca02Contazul, Int
 	
 	List<Ca02Contazul> findByIdUsuario(long idUsuario);
 	
-	@Query("SELECT new Ca02Contazul(c.perfil, c.numeroContazul, c.status) FROM Ca02Contazul c WHERE c.numeroContazul =:numeroContazul")
+	@Query("SELECT new Ca02Contazul(c.perfil, c.numeroContazul) FROM Ca02Contazul c WHERE c.numeroContazul =:numeroContazul")
 	Ca02Contazul selectFuPerfilDaConta(@Param("numeroContazul") long numeroContazul);
 	
 	Ca02Contazul findByNumeroContazul(long numeroContazul);

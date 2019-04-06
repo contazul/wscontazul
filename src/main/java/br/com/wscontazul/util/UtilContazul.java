@@ -5,6 +5,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import br.com.wscontazul.statics.Contazul;
+
 public class UtilContazul {
 	
 	public long gerardorDeContazul() {
@@ -43,7 +45,70 @@ public class UtilContazul {
         }
         return str;
     }
+
+    public String gerarStatusContazul(double valorIdeal, double totalDividaMensal, double totalBeneficioMensal) {
+    	
+    	if(valorIdeal == 0) {
+    		
+    		return Contazul.STATUS5;
+    	}
+    	
+    	double economiaAtual = totalBeneficioMensal - totalDividaMensal;
+    	
+    	double percentualSobreValorIdeal = (economiaAtual * 100) / valorIdeal;
+    	
+    	
+    	if(percentualSobreValorIdeal < 10) {
+    		
+    		return Contazul.STATUS4;
+    	}
+    	
+    	if(percentualSobreValorIdeal == 11 || percentualSobreValorIdeal <= 50) {
+    		
+    		return Contazul.STATUS3;
+    	}
+    	
+    	if(percentualSobreValorIdeal == 51 || percentualSobreValorIdeal <= 99) {
+    		
+    		return Contazul.STATUS2;
+    	} else {
+    		
+    		return Contazul.STATUS1;
+    	}
+    }
+    
+    public double calcularPercentualEconomizado(double totalBeneficioMensal, double totalDividaMensal) {
+    	
+    	if(totalBeneficioMensal == 0)
+    		return 0;
+    	
+    	double percentualSobreValorIdeal = (totalDividaMensal * 100) / totalBeneficioMensal;
+    	if(percentualSobreValorIdeal <= 0)
+    		return 0;
+    	
+    	if(percentualSobreValorIdeal >= 100)
+    		return 100;
+    	
+    	return 100 - percentualSobreValorIdeal;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

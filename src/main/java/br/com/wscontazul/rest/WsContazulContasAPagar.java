@@ -1,6 +1,5 @@
 package br.com.wscontazul.rest;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
