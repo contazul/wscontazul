@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.wscontazul.model.Ca01Usuario;
 import br.com.wscontazul.model.Ca02Contazul;
 import br.com.wscontazul.model.Ca03SomaSaldo;
+import br.com.wscontazul.model.presenter.PerfilContazul;
 import br.com.wscontazul.model.presenter.Saldo;
 import br.com.wscontazul.repository.Ca01UsuarioRepository;
 import br.com.wscontazul.repository.Ca02ContazulRepository;
 import br.com.wscontazul.repository.Ca03SomaSaldoRepository;
+import br.com.wscontazul.repository.Ca05LucroMensalRepository;
+import br.com.wscontazul.repository.Ca06DividaMensalRepository;
 import br.com.wscontazul.statics.Contazul;
 import br.com.wscontazul.statics.Excecoes;
 import br.com.wscontazul.util.UtilContazul;
@@ -34,6 +37,12 @@ public class WsContazul {
 	
 	@Autowired
 	private Ca03SomaSaldoRepository somaSaldoR;
+	
+	@Autowired
+	private Ca05LucroMensalRepository lucroMensalR;
+	
+	@Autowired
+	private Ca06DividaMensalRepository dividaMensalR;
 
 	@GetMapping("/ex01")
 	public String verificarNomeUsuarioExistenteEX01(String nomeUsuario) {
@@ -66,7 +75,7 @@ public class WsContazul {
 
 		UtilContazul utilContazul = new UtilContazul();
 		long numeroContazul = utilContazul.gerardorDeContazul();
-		contazulR.save(new Ca02Contazul(numeroContazul, Contazul.STATUS5, 0.0, 0.0, "" + numeroContazul, Contazul.TIPO1,
+		contazulR.save(new Ca02Contazul(numeroContazul, 0.0, 0.0, "" + numeroContazul, Contazul.TIPO1,
 				usuarioR.findByNomeUsuario(nomeUsuario).getId()));
 	}
 	
@@ -77,9 +86,19 @@ public class WsContazul {
 	}
 	
 	@GetMapping("/perfilContazul")
-	public Ca02Contazul getPerfilContazul(long numeroContazul) {
+	public PerfilContazul getPerfilContazul(long numeroContazul) {
 		
-		return contazulR.selectFuPerfilDaConta(numeroContazul);
+		Ca02Contazul ca02Contazul = contazulR.findByNumeroContazul(numeroContazul);
+		UtilContazul utilContazul = new UtilContazul();
+		Double totalDivida =  dividaMensalR.selectTotalDividaMensal(numeroContazul);
+		if(totalDivida == null) 
+			totalDivida = 0.0;
+		
+		Double totalBeneficio = lucroMensalR.selectTotalLucroMensal(numeroContazul);
+		if(totalBeneficio == null)
+			totalBeneficio = 0.0;
+		
+		return new PerfilContazul(ca02Contazul, utilContazul.gerarStatusContazul(ca02Contazul.getValorIdeal(), totalDivida, totalBeneficio));
 	}
 	
 	@PostMapping("/atualizarPerfilContazul")
