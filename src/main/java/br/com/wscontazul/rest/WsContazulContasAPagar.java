@@ -39,11 +39,12 @@ public class WsContazulContasAPagar {
 	@GetMapping("/listaDeDividaMensal")
 	public List<Ca06DividaMensal> listaDeDividaMensal(long numeroContazul) {
 		
-        return (List<Ca06DividaMensal>) dividaMensalR.findByNumeroContazulAndPago(numeroContazul, 0);
+        return dividaMensalR.findByNumeroContazulAndPago(numeroContazul, 0);
 	}
 	
 	@PostMapping("/quitarDivida")
 	public void quitarDivida(long id_divida_mensal) {
+		
 		Ca06DividaMensal ca06DividaMensal =  dividaMensalR.findById(id_divida_mensal);
 		int totalParcela = ca06DividaMensal.getQuantidadeParcela();
 		int quantidadePaga = ca06DividaMensal.getQuantidadePaga();
@@ -53,21 +54,32 @@ public class WsContazulContasAPagar {
 		ca02Contazul.setSaldo(ca02Contazul.getSaldo() - valorQuitar);
 		contazulR.save(ca02Contazul);
 		ca06DividaMensal.setPago(1);
+		UtilDatas utilDatas = new UtilDatas();
+		ca06DividaMensal.setDataPagamento(utilDatas.getDataCorrente());
 		dividaMensalR.save(ca06DividaMensal);
 	}
 	
 	@PostMapping("/pagarDivida")
 	public void pagarDIvida(long id_divida_mensal) {
+		
 		Ca06DividaMensal ca06DividaMensal = dividaMensalR.findById(id_divida_mensal);
 		Ca02Contazul ca02Contazul =  contazulR.findByNumeroContazul(ca06DividaMensal.getNumeroContazul());
 		ca02Contazul.setSaldo(ca02Contazul.getSaldo() - ca06DividaMensal.getValor());
 		contazulR.save(ca02Contazul);
-		ca06DividaMensal.setPago(1);
+		if(ca06DividaMensal.getQuantidadeParcela() != 0) {
+			
+			ca06DividaMensal.setQuantidadePaga(ca06DividaMensal.getQuantidadePaga() + 1);
+			if(ca06DividaMensal.getQuantidadePaga() == ca06DividaMensal.getQuantidadeParcela())
+				ca06DividaMensal.setPago(1);
+		}
+		UtilDatas utilDatas = new UtilDatas();
+		ca06DividaMensal.setDataPagamento(utilDatas.getDataCorrente()); 
 		dividaMensalR.save(ca06DividaMensal);
 	}
 	
 	@DeleteMapping("/excluirDivida")
 	public void excluirDivida(long id_divida_mensal) {
+		
 		Ca06DividaMensal ca06DividaMensal = dividaMensalR.findById(id_divida_mensal);
 		dividaMensalR.delete(ca06DividaMensal);
 	}

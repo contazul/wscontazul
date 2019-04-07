@@ -41,8 +41,6 @@ public class Ca06DividaMensal {
 		
 	}
 
-	
-
 	public Ca06DividaMensal(String descricao, double valor, String prioridade, int quantidadePaga,
 			int quantidadeParcela, int pago, Date dataPagamento, long numeroContazul) {
 
@@ -55,8 +53,6 @@ public class Ca06DividaMensal {
 		this.dataPagamento = dataPagamento;
 		this.numeroContazul = numeroContazul;
 	}
-
-
 
 	public long getId() {
 		return id;
@@ -122,17 +118,11 @@ public class Ca06DividaMensal {
 		this.dataPagamento = dataPagamento;
 	}
 
-
-
 	public long getNumeroContazul() {
 		return numeroContazul;
 	}
 
-
-
 	public void setNumeroContazul(long numeroContazul) {
 		this.numeroContazul = numeroContazul;
 	}
-	
-	
 }
