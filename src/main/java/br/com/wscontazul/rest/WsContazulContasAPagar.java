@@ -1,5 +1,6 @@
 package br.com.wscontazul.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.wscontazul.model.Ca02Contazul;
 import br.com.wscontazul.model.Ca06DividaMensal;
+import br.com.wscontazul.model.presenter.ListaContasAPagar;
 import br.com.wscontazul.repository.Ca02ContazulRepository;
 import br.com.wscontazul.repository.Ca06DividaMensalRepository;
 import br.com.wscontazul.util.UtilDatas;
@@ -37,9 +39,16 @@ public class WsContazulContasAPagar {
 	}
 	
 	@GetMapping("/listaDeDividaMensal")
-	public List<Ca06DividaMensal> listaDeDividaMensal(long numeroContazul) {
+	public List<ListaContasAPagar> listaDeDividaMensal(long numeroContazul) {
 		
-        return dividaMensalR.findByNumeroContazulAndPago(numeroContazul, 0);
+		List<Ca06DividaMensal> dividas = dividaMensalR.findByNumeroContazulAndPago(numeroContazul, 0);
+		List<ListaContasAPagar> contas = new ArrayList<>();
+		for(Ca06DividaMensal divida : dividas) {
+			
+			UtilDatas utilDatas = new UtilDatas();
+			contas.add(new ListaContasAPagar(divida, utilDatas.converterSqlDateParaString(divida.getDataPagamento())));
+		}
+        return contas;
 	}
 	
 	@PostMapping("/quitarDivida")
