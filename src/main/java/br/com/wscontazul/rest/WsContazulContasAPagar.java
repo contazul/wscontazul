@@ -32,10 +32,8 @@ public class WsContazulContasAPagar {
 	public void incluirConta(String descricao, double valor, String prioridade,
 			int quantidadeParcela, long numeroContazul) {
 		
-		UtilDatas utilDatas = new UtilDatas();
-		
 		dividaMensalR.save(new Ca06DividaMensal(descricao, valor, prioridade, 0,
-				quantidadeParcela, 0, utilDatas.getDataCorrente(), numeroContazul));
+				quantidadeParcela, 0, null, numeroContazul));
 	}
 	
 	@GetMapping("/listaDeDividaMensal")

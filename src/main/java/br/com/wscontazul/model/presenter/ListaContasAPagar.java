@@ -11,6 +11,7 @@ public class ListaContasAPagar extends Ca06DividaMensal{
 		super(dividaMensal.getDescricao(), dividaMensal.getValor(), dividaMensal.getPrioridade(), 
 				dividaMensal.getQuantidadePaga(), dividaMensal.getQuantidadeParcela(), 
 				dividaMensal.getPago(), dividaMensal.getDataPagamento(), dividaMensal.getNumeroContazul());
+		super.setId(dividaMensal.getId());
 		this.strUltimaDataPagamento = strUltimaDataPagamento;
 	}
 
