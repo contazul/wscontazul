@@ -1,7 +1,5 @@
 package br.com.wscontazul.model;
 
-import java.sql.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,12 +33,6 @@ public class Ca07Meta {
 	
 	@Column(name = "quantidade_parcela")
 	private Integer quantidadeParcela;
-	
-	@Column(name = "quantidade_paga")
-	private Integer quantidadePaga;
-	
-	@Column(name = "data_aplicacao")
-	private Date dataAplicacao;
 	
 	@Column(name = "is_realizada")
 	private Integer isRealizada;
@@ -115,22 +107,6 @@ public class Ca07Meta {
 
 	public void setQuantidadeParcela(Integer quantidadeParcela) {
 		this.quantidadeParcela = quantidadeParcela;
-	}
-
-	public Integer getQuantidadePaga() {
-		return quantidadePaga;
-	}
-
-	public void setQuantidadePaga(Integer quantidadePaga) {
-		this.quantidadePaga = quantidadePaga;
-	}
-
-	public Date getDataAplicacao() {
-		return dataAplicacao;
-	}
-
-	public void setDataAplicacao(Date dataAplicacao) {
-		this.dataAplicacao = dataAplicacao;
 	}
 
 	public Integer getIsRealizada() {
