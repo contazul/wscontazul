@@ -42,19 +42,23 @@ public class Ca07Meta {
 	@Column(name = "data_aplicacao")
 	private Date dataAplicacao;
 	
+	@Column(name = "is_realizada")
+	private Integer isRealizada;
+	
 	public Ca07Meta() {
 		
 	}
 
 	public Ca07Meta(String descricao, Double valor, Integer isAvista, Double valorEconomizar, Long numeroContazul,
-			Integer quantidadeParcela) {
-		super();
+			Integer quantidadeParcela, Integer isRealizada) {
+		
 		this.descricao = descricao;
 		this.valor = valor;
 		this.isAvista = isAvista;
 		this.valorEconomizar = valorEconomizar;
 		this.numeroContazul = numeroContazul;
 		this.quantidadeParcela = quantidadeParcela;
+		this.isRealizada = isRealizada;
 	}
 
 	public Long getId() {
@@ -127,5 +131,13 @@ public class Ca07Meta {
 
 	public void setDataAplicacao(Date dataAplicacao) {
 		this.dataAplicacao = dataAplicacao;
+	}
+
+	public Integer getIsRealizada() {
+		return isRealizada;
+	}
+
+	public void setIsRealizada(Integer isRealizada) {
+		this.isRealizada = isRealizada;
 	}
 }

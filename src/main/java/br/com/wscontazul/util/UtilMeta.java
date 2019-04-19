@@ -26,4 +26,17 @@ public class UtilMeta {
 		double valorBase = totalBeneficioMensal - totalDividas;
 		return valorEconomizar - valorBase;
 	}
+	
+	public boolean verificarPagamentoMesCorrente(String data) {
+		
+		if(data == null)
+			return false;
+		
+		String[] dataSplit = data.split("/");
+		UtilDatas utilDatas = new UtilDatas();
+		if(dataSplit[1].equals(utilDatas.getMesAtual()))
+			return true;		
+		
+		return false;
+	}
 }

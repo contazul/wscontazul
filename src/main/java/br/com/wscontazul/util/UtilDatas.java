@@ -17,7 +17,7 @@ public class UtilDatas {
         return date;
     }
 
-    private String getMesAtual() {
+    public String getMesAtual() {
 
         GregorianCalendar calendar = new GregorianCalendar();
         String mes = "" + (calendar.get(GregorianCalendar.MONTH) + 1);
