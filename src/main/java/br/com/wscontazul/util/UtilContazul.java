@@ -91,6 +91,11 @@ public class UtilContazul {
     	
     	return 100 - percentualSobreValorIdeal;
     }
+    
+    public double calcularValorEconomizado(double totalBeneficioMensal, double totalDividaMensal) {
+    	
+    	return totalBeneficioMensal - totalDividaMensal;
+    }
 }
 
 

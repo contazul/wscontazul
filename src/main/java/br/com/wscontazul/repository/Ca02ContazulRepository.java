@@ -19,4 +19,7 @@ public interface Ca02ContazulRepository extends CrudRepository<Ca02Contazul, Int
 	
 	@Query("SELECT c.saldo FROM Ca02Contazul c WHERE c.numeroContazul =:numeroContazul")
 	double findSaldoByNumeroContazul(@Param("numeroContazul") long numeroContazul);
+	
+	@Query("SELECT a.valorIdeal FROM Ca02Contazul a WHERE a.numeroContazul =:numeroContazul")
+	double findValorIdealByNumeroContazul(@Param("numeroContazul") long numeroContazul);
 }

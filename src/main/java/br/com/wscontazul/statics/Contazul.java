@@ -6,7 +6,7 @@ public class Contazul {
 	public static final String TIPO2 = "Centralizadora";
 	public static final String TIPO3 = "Centralizada";
 	
-	public static final String STATUS1 = "Ótimo";
+	public static final String STATUS1 = "Ideal";
 	public static final String STATUS2 = "Bom";
 	public static final String STATUS3 = "Regular";
 	public static final String STATUS4 = "Crítico";
