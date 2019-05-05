@@ -39,7 +39,7 @@ public class WsContazulSimulador {
 		
 		double totalBeneficio = (dadosAtuais.getTotalBeneficioMensal() + se.getTotalBeneficio()) - se.getTotalBeneficioRemovido();
 		
-		double totalDivida = (dadosAtuais.getTotalDividaMensal() + se.getTotalDivida()) - se.getTotalBeneficioRemovido();
+		double totalDivida = (dadosAtuais.getTotalDividaMensal() + se.getTotalDivida()) - se.getTotalDividaRemovida();
 		//
 		
 		// OBTENDO STATUS
