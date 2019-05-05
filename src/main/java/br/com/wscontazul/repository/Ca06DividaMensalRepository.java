@@ -19,4 +19,6 @@ public interface Ca06DividaMensalRepository extends CrudRepository<Ca06DividaMen
 	
 	@Query("SELECT SUM(a.valor) FROM Ca06DividaMensal a WHERE a.numeroContazul =:numeroContazul AND a.pago = 0 AND a.prioridade = 'baixa'")
 	Double selectTotalDividaMensalBaixaPrioridade(@Param("numeroContazul") long numeroContazul);
+	
+	List<Ca06DividaMensal> findByNumeroContazulAndPagoAndQuantidadeParcela(long numeroContazul, int pago, int quantidadeParcela);
 }

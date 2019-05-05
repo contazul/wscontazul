@@ -90,6 +90,12 @@ public class WsContazulContasAPagar {
 		Ca06DividaMensal ca06DividaMensal = dividaMensalR.findById(id_divida_mensal);
 		dividaMensalR.delete(ca06DividaMensal);
 	}
+	
+	@GetMapping("/listarDividaFixa")
+	public List<Ca06DividaMensal> listarDividaFixa(long numeroContazul) {
+		
+		return dividaMensalR.findByNumeroContazulAndPagoAndQuantidadeParcela(numeroContazul, 0, 0);
+	}
 }
 
 
