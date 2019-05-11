@@ -1,5 +1,7 @@
 package br.com.wscontazul.util;
 
+import javax.validation.ValidationProviderResolver;
+
 import br.com.wscontazul.statics.Meta;
 
 // 12032019195445
@@ -13,7 +15,7 @@ public class UtilMeta {
 			
 		double valorBase = totalBeneficioMensal - totalDividas;
 		
-		if(valorBase >= (valorMeta + valorEconomizar) && isAvista == 1) 
+		if(saldo >= (valorMeta + valorEconomizar) && isAvista == 1) 
 			return Meta.STATUS_02;
 	
 		if(valorBase >= (valorMeta + valorEconomizar))
@@ -26,12 +28,11 @@ public class UtilMeta {
 	public double calcularValorRestante(double totalBeneficioMensal, double totalDividas, 
 			double valorMeta, double valorEconomizar) {
 		
-		double valorBase = totalBeneficioMensal - totalDividas;
-		double resultado = valorEconomizar - valorBase;
-		if(resultado <= 0)
+		double valorBase = totalBeneficioMensal - (totalDividas + valorMeta + valorEconomizar);
+		if(valorBase >= 0)
 			return 0;
 		
-		return resultado;
+		return valorBase * -1;
 	}
 	
 	public int verficarTipoMeta(int aVista, int quantidadeParcela) {
@@ -60,7 +61,7 @@ public class UtilMeta {
 		return false;
 	}
 	
-	public boolean verificarNaoPodeSAplicar(String status) {
+	public boolean verificarNaoPodeAplicar(String status) {
 		
 		return !status.equals(Meta.STATUS_01);
 	}

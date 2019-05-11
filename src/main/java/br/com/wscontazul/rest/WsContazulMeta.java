@@ -18,6 +18,7 @@ import br.com.wscontazul.repository.Ca05LucroMensalRepository;
 import br.com.wscontazul.repository.Ca06DividaMensalRepository;
 import br.com.wscontazul.repository.Ca07MetaRepository;
 import br.com.wscontazul.statics.ContasAPagar;
+import br.com.wscontazul.statics.Meta;
 import br.com.wscontazul.util.UtilMeta;
 
 @RestController
@@ -58,13 +59,17 @@ public class WsContazulMeta {
 			
 			UtilMeta util = new UtilMeta();
 			
-			ListaMeta listaMeta = new ListaMeta(
-					util.calcularStatus(totalBeneficio, totalDivida, meta.getValor(), meta.getValorEconomizar(), meta.getIsAvista(), 
-					contazulR.findSaldoByNumeroContazul(meta.getNumeroContazul())), 
-					util.calcularValorRestante(totalBeneficio, totalDivida, meta.getValor(), meta.getValorEconomizar()),
-					meta);
+			String status = util.calcularStatus(totalBeneficio, totalDivida, meta.getValor(), 
+					meta.getValorEconomizar(), meta.getIsAvista(),contazulR.findSaldoByNumeroContazul(meta.getNumeroContazul()));
 			
-			listaMeta.setPodeAplicar(util.verificarNaoPodeSAplicar(listaMeta.getStatus()));
+			double valorRestante = 0;
+			
+			if(!status.equals(Meta.STATUS_02))
+				valorRestante = util.calcularValorRestante(totalBeneficio, totalDivida, meta.getValor(), meta.getValorEconomizar()); 
+			
+			ListaMeta listaMeta = new ListaMeta(status, valorRestante,meta);
+			
+			listaMeta.setPodeAplicar(util.verificarNaoPodeAplicar(listaMeta.getStatus()));
 			
 			lista.add(listaMeta);
 		}
