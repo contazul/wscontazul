@@ -108,6 +108,19 @@ public class WsContazulMeta {
 		
 		this.metaR.delete(this.metaR.findById(id));
 	}
+	
+	@GetMapping("/listaMetaStatus01")
+	public List<ListaMeta> listaMetaStatus01(long numeroContazul) {
+		
+		List<ListaMeta> lista = this.listaMeta(numeroContazul);
+		List<ListaMeta> listaNova = new ArrayList<>();
+		for(ListaMeta item : lista) {
+			
+			if(item.getStatus().equals(Meta.STATUS_01))
+				listaNova.add(item);
+		}
+		return listaNova;
+	}
 }
 
 
