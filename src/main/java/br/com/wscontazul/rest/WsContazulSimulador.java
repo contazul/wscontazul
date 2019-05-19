@@ -7,9 +7,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.wscontazul.model.Ca07Meta;
 import br.com.wscontazul.model.presenter.Central;
+import br.com.wscontazul.model.presenter.ItemSimulacao;
 import br.com.wscontazul.model.presenter.SimuladorEntrada;
 import br.com.wscontazul.model.presenter.SimuladorSaida;
 import br.com.wscontazul.repository.Ca02ContazulRepository;
+import br.com.wscontazul.repository.Ca05LucroMensalRepository;
+import br.com.wscontazul.repository.Ca06DividaMensalRepository;
 import br.com.wscontazul.repository.Ca07MetaRepository;
 import br.com.wscontazul.util.UtilContazul;
 import br.com.wscontazul.util.UtilMeta;
@@ -26,6 +29,12 @@ public class WsContazulSimulador {
 	
 	@Autowired
 	private Ca07MetaRepository metaR;
+	
+	@Autowired
+	private Ca05LucroMensalRepository lucroR;
+	
+	@Autowired
+	private Ca06DividaMensalRepository dividaR;
 	
 	@GetMapping("/simular")
 	public SimuladorSaida simular(SimuladorEntrada se) {
@@ -89,6 +98,16 @@ public class WsContazulSimulador {
 		ss.setValorEconomizadoSimulado(valorSimuladoEconomizado);
 		//
 		return ss;
+	}
+	
+	@GetMapping("/itemSimulacao")
+	public ItemSimulacao itemSimulacao(long numeroContazul) {
+		
+		ItemSimulacao itemSimulacao = new ItemSimulacao();
+		itemSimulacao.setTemDivida(dividaR.quantidadeRegistro(numeroContazul) != 0);
+		itemSimulacao.setTemBeneficio(lucroR.quantidadeRegistro(numeroContazul) != 0);
+		itemSimulacao.setTemMeta(metaR.countByNumeroContazulAndIsRealizada(numeroContazul, 0) != 0);
+		return itemSimulacao;
 	}
 }
 

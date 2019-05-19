@@ -96,6 +96,31 @@ public class WsContazul {
 		
 		Ca02Contazul ca02Contazul = contazulR.findByNumeroContazul(numeroContazul);
 		UtilContazul utilContazul = new UtilContazul();
+		
+		if (ca02Contazul.getPerfil().equals(Contazul.TIPO2)) {
+			
+			Double totalDivida = 0.0;
+			Double totalBeneficioMensal = 0.0;
+			
+			long[] centralizadas = this.centralizacaoR
+					.findNumeroContazulCentralizadaByNumeroContazulCentralizadora(numeroContazul);
+			
+			for (int i = 0; i < centralizadas.length; i++) {
+				
+				Double inf3 = this.lucroMensalR.selectTotalLucroMensal(centralizadas[i]);
+				
+				if(inf3 != null)
+					totalBeneficioMensal += inf3;
+					
+				Double inf5 = this.dividaMensalR.selectTotalDividaMensal(centralizadas[i]);
+				
+				if(inf5 != null)
+					totalDivida += inf5;
+			}
+			
+			return new PerfilContazul(ca02Contazul, utilContazul.gerarStatusContazul(ca02Contazul.getValorIdeal(), totalDivida, totalBeneficioMensal));
+		}
+		
 		Double totalDivida =  dividaMensalR.selectTotalDividaMensal(numeroContazul);
 		if(totalDivida == null) 
 			totalDivida = 0.0;
