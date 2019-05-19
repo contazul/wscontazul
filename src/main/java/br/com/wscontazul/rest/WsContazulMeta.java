@@ -48,32 +48,40 @@ public class WsContazulMeta {
 	@GetMapping("/listaMeta")
 	public List<ListaMeta> listaMeta(long numeroContazul) {
 		
-		double totalDivida = dividaMensalR.selectTotalDividaMensal(numeroContazul);
-		double totalBeneficio = lucroMensalR.selectTotalLucroMensal(numeroContazul);
-		
+		List<ListaMeta> lista = new ArrayList<>();
 		List<Ca07Meta> metas = metaR.findByNumeroContazulAndIsRealizada(numeroContazul, 0);
 		
-		List<ListaMeta> lista = new ArrayList<>();
+		if(metas != null && metas.size() != 0) {
+			
+			double totalDivida = 0;
+			double totalBeneficio = 0;
+			
+			if(this.dividaMensalR.quantidadeRegistro(numeroContazul) != 0)
+				totalDivida = dividaMensalR.selectTotalDividaMensal(numeroContazul);
+			
+			if(this.lucroMensalR.quantidadeRegistro(numeroContazul) != 0)
+				totalBeneficio = lucroMensalR.selectTotalLucroMensal(numeroContazul);
+			
+			for(Ca07Meta meta : metas) {
+				
+				UtilMeta util = new UtilMeta();
+				
+				String status = util.calcularStatus(totalBeneficio, totalDivida, meta.getValor(), 
+						meta.getValorEconomizar(), meta.getIsAvista(),contazulR.findSaldoByNumeroContazul(meta.getNumeroContazul()));
+				
+				double valorRestante = 0;
+				
+				if(!status.equals(Meta.STATUS_02))
+					valorRestante = util.calcularValorRestante(totalBeneficio, totalDivida, meta.getValor(), meta.getValorEconomizar()); 
+				
+				ListaMeta listaMeta = new ListaMeta(status, valorRestante,meta);
+				
+				listaMeta.setPodeAplicar(util.verificarNaoPodeAplicar(listaMeta.getStatus()));
+				
+				lista.add(listaMeta);
+			}
 		
-		for(Ca07Meta meta : metas) {
-			
-			UtilMeta util = new UtilMeta();
-			
-			String status = util.calcularStatus(totalBeneficio, totalDivida, meta.getValor(), 
-					meta.getValorEconomizar(), meta.getIsAvista(),contazulR.findSaldoByNumeroContazul(meta.getNumeroContazul()));
-			
-			double valorRestante = 0;
-			
-			if(!status.equals(Meta.STATUS_02))
-				valorRestante = util.calcularValorRestante(totalBeneficio, totalDivida, meta.getValor(), meta.getValorEconomizar()); 
-			
-			ListaMeta listaMeta = new ListaMeta(status, valorRestante,meta);
-			
-			listaMeta.setPodeAplicar(util.verificarNaoPodeAplicar(listaMeta.getStatus()));
-			
-			lista.add(listaMeta);
 		}
-		
 		return lista;
 	}
 	
